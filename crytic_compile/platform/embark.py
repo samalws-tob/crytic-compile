@@ -147,7 +147,7 @@ class Embark(AbstractPlatform):
                 source_unit = compilation_unit.create_source_unit(filename)
 
                 compilation_unit.filename_to_contracts[filename].add(contract_name)
-                source_unit.contracts_names.add(contract_name)
+                source_unit.contracts_names.append(contract_name)
 
                 if "abi" in info:
                     source_unit.abis[contract_name] = info["abi"]

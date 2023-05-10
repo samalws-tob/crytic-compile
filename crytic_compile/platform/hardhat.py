@@ -93,7 +93,7 @@ def hardhat_like_parsing(
                     for original_contract_name, info in contracts_info.items():
                         contract_name = extract_name(original_contract_name)
 
-                        source_unit.contracts_names.add(contract_name)
+                        source_unit.contracts_names.append(contract_name)
                         compilation_unit.filename_to_contracts[filename].add(contract_name)
 
                         source_unit.abis[contract_name] = info["abi"]

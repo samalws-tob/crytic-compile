@@ -193,7 +193,7 @@ class Waffle(AbstractPlatform):
 
             source_unit.ast = target_all["sources"][contract[0]]["AST"]
             compilation_unit.filename_to_contracts[filename].add(contract_name)
-            source_unit.contracts_names.add(contract_name)
+            source_unit.contracts_names.append(contract_name)
             source_unit.abis[contract_name] = target_loaded["abi"]
 
             userdoc = target_loaded.get("userdoc", {})

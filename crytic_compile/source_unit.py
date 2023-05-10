@@ -87,10 +87,10 @@ class SourceUnit:
         self._libraries: Dict[str, List[Tuple[str, str]]] = {}
 
         # set containing all the contract names
-        self._contracts_name: Set[str] = set()
+        self._contracts_name: list[str] = []
 
         # set containing all the contract name without the libraries
-        self._contracts_name_without_libraries: Optional[Set[str]] = None
+        self._contracts_name_without_libraries: Optional[list[str]] = None
 
     # region ABI
     ###################################################################################
@@ -411,37 +411,37 @@ class SourceUnit:
     ###################################################################################
 
     @property
-    def contracts_names(self) -> Set[str]:
+    def contracts_names(self) -> list[str]:
         """Return the contracts names
 
         Returns:
-            Set[str]: List of the contracts names
+            list[str]: List of the contracts names
         """
         return self._contracts_name
 
     @contracts_names.setter
-    def contracts_names(self, names: Set[str]) -> None:
+    def contracts_names(self, names: list[str]) -> None:
         """Set the contract names
 
         Args:
-            names (Set[str]): New contracts names
+            names (list[str]): New contracts names
         """
         self._contracts_name = names
 
     @property
-    def contracts_names_without_libraries(self) -> Set[str]:
+    def contracts_names_without_libraries(self) -> list[str]:
         """Return the contracts names without the librairies
 
         Returns:
-            Set[str]: List of contracts
+            list[str]: List of contracts
         """
         if self._contracts_name_without_libraries is None:
             libraries: List[str] = []
             for contract_name in self._contracts_name:
                 libraries += self.libraries_names(contract_name)
-            self._contracts_name_without_libraries = {
+            self._contracts_name_without_libraries = [
                 l for l in self._contracts_name if l not in set(libraries)
-            }
+            ]
         return self._contracts_name_without_libraries
 
     # endregion

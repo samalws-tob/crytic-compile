@@ -290,7 +290,7 @@ def _load_from_compile_legacy1(crytic_compile: "CryticCompile", loaded_json: Dic
         compilation_unit.filename_to_contracts[filename].add(contract_name)
         source_unit = compilation_unit.create_source_unit(filename)
 
-        source_unit.contracts_names.add(contract_name)
+        source_unit.contracts_names.append(contract_name)
         source_unit.abis[contract_name] = contract["abi"]
         source_unit.bytecodes_init[contract_name] = contract["bin"]
         source_unit.bytecodes_runtime[contract_name] = contract["bin-runtime"]
@@ -352,7 +352,7 @@ def _load_from_compile_legacy2(crytic_compile: "CryticCompile", loaded_json: Dic
             compilation_unit.filename_to_contracts[filename].add(contract_name)
 
             source_unit = compilation_unit.create_source_unit(filename)
-            source_unit.contracts_names.add(contract_name)
+            source_unit.contracts_names.apppend(contract_name)
             source_unit.abis[contract_name] = contract["abi"]
             source_unit.bytecodes_init[contract_name] = contract["bin"]
             source_unit.bytecodes_runtime[contract_name] = contract["bin-runtime"]
@@ -408,7 +408,7 @@ def _load_from_compile_0_0_1(crytic_compile: "CryticCompile", loaded_json: Dict)
                 )
                 compilation_unit.filename_to_contracts[filename].add(contract_name)
                 source_unit = compilation_unit.create_source_unit(filename)
-                source_unit.contracts_names.add(contract_name)
+                source_unit.contracts_names.append(contract_name)
                 source_unit.abis[contract_name] = contract["abi"]
                 source_unit.bytecodes_init[contract_name] = contract["bin"]
                 source_unit.bytecodes_runtime[contract_name] = contract["bin-runtime"]
@@ -458,7 +458,7 @@ def _load_from_compile_current(crytic_compile: "CryticCompile", loaded_json: Dic
                 compilation_unit.filename_to_contracts[filename].add(contract_name)
 
                 source_unit = compilation_unit.create_source_unit(filename)
-                source_unit.contracts_names.add(contract_name)
+                source_unit.contracts_names.append(contract_name)
                 source_unit.abis[contract_name] = contract["abi"]
                 source_unit.bytecodes_init[contract_name] = contract["bin"]
                 source_unit.bytecodes_runtime[contract_name] = contract["bin-runtime"]
