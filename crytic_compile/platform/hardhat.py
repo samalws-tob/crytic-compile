@@ -78,6 +78,26 @@ def hardhat_like_parsing(
                 f"0.4.{x}" for x in range(0, 10)
             ]
 
+            if "sources" in targets_json:
+                for path, info in targets_json["sources"].items():
+                    if skip_filename:
+                        path = convert_filename(
+                            target,
+                            relative_to_short,
+                            crytic_compile,
+                            working_dir=working_dir,
+                        )
+                    else:
+                        path = convert_filename(
+                            path,
+                            relative_to_short,
+                            crytic_compile,
+                            working_dir=working_dir,
+                        )
+
+                    source_unit = compilation_unit.create_source_unit(path)
+                    source_unit.ast = info["ast"]
+
             if "contracts" in targets_json:
                 for original_filename, contracts_info in targets_json["contracts"].items():
 
@@ -113,26 +133,6 @@ def hardhat_like_parsing(
                         devdoc = info.get("devdoc", {})
                         natspec = Natspec(userdoc, devdoc)
                         source_unit.natspec[contract_name] = natspec
-
-            if "sources" in targets_json:
-                for path, info in targets_json["sources"].items():
-                    if skip_filename:
-                        path = convert_filename(
-                            target,
-                            relative_to_short,
-                            crytic_compile,
-                            working_dir=working_dir,
-                        )
-                    else:
-                        path = convert_filename(
-                            path,
-                            relative_to_short,
-                            crytic_compile,
-                            working_dir=working_dir,
-                        )
-
-                    source_unit = compilation_unit.create_source_unit(path)
-                    source_unit.ast = info["ast"]
 
 
 class Hardhat(AbstractPlatform):

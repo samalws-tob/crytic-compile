@@ -181,6 +181,12 @@ class Waffle(AbstractPlatform):
 
         compilation_unit = CompilationUnit(crytic_compile, str(target))
 
+        if "sources" in target_all:
+            compilation_unit.filenames = [
+                convert_filename(path, _relative_to_short, crytic_compile, working_dir=target)
+                for path in target_all["sources"]
+            ]
+
         for contract in target_all["contracts"]:
             target_loaded = target_all["contracts"][contract]
             contract = contract.split(":")

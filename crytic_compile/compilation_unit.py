@@ -123,8 +123,9 @@ class CompilationUnit:
         """
         if not filename in self._source_units:
             source_unit = SourceUnit(self, filename)  # type: ignore
-            self.filenames.append(filename)
             self._source_units[filename] = source_unit
+            if filename not in self.filenames:
+                self.filenames.append(filename)
         return self._source_units[filename]
 
     # endregion

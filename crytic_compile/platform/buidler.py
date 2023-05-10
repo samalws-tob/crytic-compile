@@ -111,6 +111,26 @@ class Buidler(AbstractPlatform):
         with open(target_solc_file, encoding="utf8") as file_desc:
             targets_json = json.load(file_desc)
 
+            if "sources" in targets_json:
+                for path, info in targets_json["sources"].items():
+
+                    if path.startswith("ontracts/") and not skip_directory_name_fix:
+                        path = "c" + path
+
+                    if skip_filename:
+                        path = convert_filename(
+                            self._target,
+                            relative_to_short,
+                            crytic_compile,
+                            working_dir=buidler_working_dir,
+                        )
+                    else:
+                        path = convert_filename(
+                            path, relative_to_short, crytic_compile, working_dir=buidler_working_dir
+                        )
+                    source_unit = compilation_unit.create_source_unit(path)
+                    source_unit.ast = info["ast"]
+
             if "contracts" in targets_json:
                 for original_filename, contracts_info in targets_json["contracts"].items():
                     filename = convert_filename(
@@ -150,26 +170,6 @@ class Buidler(AbstractPlatform):
                         devdoc = info.get("devdoc", {})
                         natspec = Natspec(userdoc, devdoc)
                         source_unit.natspec[contract_name] = natspec
-
-            if "sources" in targets_json:
-                for path, info in targets_json["sources"].items():
-
-                    if path.startswith("ontracts/") and not skip_directory_name_fix:
-                        path = "c" + path
-
-                    if skip_filename:
-                        path = convert_filename(
-                            self._target,
-                            relative_to_short,
-                            crytic_compile,
-                            working_dir=buidler_working_dir,
-                        )
-                    else:
-                        path = convert_filename(
-                            path, relative_to_short, crytic_compile, working_dir=buidler_working_dir
-                        )
-                    source_unit = compilation_unit.create_source_unit(path)
-                    source_unit.ast = info["ast"]
 
     def clean(self, **kwargs: str) -> None:
         # TODO: call "buldler clean"?
