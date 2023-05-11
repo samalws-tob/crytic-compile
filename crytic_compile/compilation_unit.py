@@ -114,6 +114,8 @@ class CompilationUnit:
         Create the source unit associated with the filename
         Add the relevant info in the compilation unit/crytic compile
         If the source unit already exist, return it
+        Also appends filename to the end of filenames, if not already present
+        So this function should be called in the order you want filenames to have
 
         Args:
             filename (Filename): filename of the source unit
